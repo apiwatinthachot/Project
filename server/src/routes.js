@@ -3,6 +3,7 @@ const UserAuthenController = require('./controllers/UserAuthenController')
 const isAuthenController = require('./authen/isAuthenController')
 const BlogController = require('./controllers/BlogController')
 const CommentController = require('./controllers/CommentController')
+const BookingController = require('./controllers/BookingController')
 let multer = require("multer")
 // upload section
 let storage = multer.diskStorage({
@@ -42,6 +43,26 @@ module.exports = (app) => {
     )
     app.post('/login',
         UserAuthenController.login
+    )
+    // create booking
+    app.post('/booking',
+        BookingController.create
+    )
+    // edit booking, suspend, active
+    app.put('/booking/:bookingId',
+        BookingController.put
+    )
+    // delete booking
+    app.delete('/booking/:bookingId',
+        BookingController.remove
+    )
+    // get booking by id
+    app.get('/booking/:bookingId',
+        BookingController.show
+    )
+    // get all booking
+    app.get('/bookings',
+        BookingController.index
     )
     // blog route
     // create blog
@@ -134,5 +155,21 @@ module.exports = (app) => {
         }
     })
 
-    
+    app.post('/front/login',
+        UserAuthenController.clientLogin
+    )
+
+    // get comment by id
+    app.get('/comment/blog/:blogId',
+        CommentController.blog
+    )
+    // get comment by id
+    app.get('/comment/user/:userId',
+        CommentController.user
+    )
+    // users
+    // get front
+    app.get('/users/front',
+        UserController.getFront
+    )
 }

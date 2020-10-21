@@ -1,12 +1,15 @@
 <template>
     <div>
-        <h1>User Login</h1>
+       <main-header navsel="back"></main-header><br>
+        <center><h1>เข้าสู่ระบบ</h1>
         <form v-on:submit.prevent="onLogin">
-            <p>Username: <input type="text" v-model="email" /></p>
-            <p>Password: <input type="password" v-model="password" /></p>
-            <p><button type="submit">Login</button></p>
+            <p><b>Username:</b> <input type="text" v-model="email" /></p>
+            <p><b>Password:</b> <input type="password" v-model="password" /></p>
+            <p><button class="btn btn-success-sm" style="background:#3a85a6;"   type="submit" ><span style="color:#ffffff">เข้าสู่ระบบ</span></button> 
+            <button class="btn btn-success-sm" style="background:#e10027;" v-on:click="navigateTo('/blogs')"  type="submit" ><span style="color:#ffffff">ยกเลิก</span></button> </p>
             <div class="error" v-if="error">{{error}}</div>
         </form>
+        </center>
     </div>
 </template>
 <script>
@@ -31,7 +34,7 @@ export default {
                 this.$store.dispatch('setToken', response.data.token)
                 this.$store.dispatch('setUser', response.data.user)
                 this.$router.push({
-                    name: 'users'
+                    name: 'blogs'
                 })
 
                 console.log(response)
@@ -41,7 +44,11 @@ export default {
                 this.email = ''
                 this.password = ''
             }
-        }
+        },
+        navigateTo(route) {
+      this.$router.push(route);
+    },
+
     }
 }
 </script>
